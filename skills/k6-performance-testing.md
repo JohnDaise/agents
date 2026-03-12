@@ -44,7 +44,6 @@ perf-test/
 ├── config/
 │   └── environments.js    # Environment configurations (local, dev, qa, staging)
 ├── data/
-│   └── event-ids.json     # Test data (event IDs, etc.) - easily updateable
 ├── scenarios/
 │   ├── smoke.js           # Basic functionality test (1-2 VUs, 1 min)
 │   ├── load.js            # Realistic traffic simulation (10-50 VUs, 10 min)
@@ -61,7 +60,7 @@ perf-test/
 1. **script.js** - Main entry point for basic load testing. Use this for quick, comprehensive tests.
 2. **scenarios/*.js** - Specialized test scenarios for specific testing needs (smoke, load, stress, spike).
 3. **config/environments.js** - Centralized environment configuration. **Important: Do not include production URLs** to prevent accidental load testing of production.
-4. **data/*.json** - Test data files (event IDs, user accounts, etc.) in JSON format for easy updates.
+4. **data/*.json** - Test data files (IDs, user accounts, etc.) in JSON format for easy updates.
 5. **tests/[app-name].test.js** - Core test logic with reusable functions that scenarios import.
 6. **utils/helpers.js** - Shared helper functions, test data selectors, and utilities.
 
@@ -111,10 +110,10 @@ Extract test data to JSON files:
 
 ```json
 {
-  "eventIds": ["id1", "id2", "id3"],
+  "ids": ["id1", "id2", "id3"],
   "metadata": {
     "lastUpdated": "2026-03-12",
-    "description": "Test event IDs from QA environment"
+    "description": "IDs from QA environment"
   }
 }
 ```
@@ -125,14 +124,14 @@ Add reusable functions:
 
 ```javascript
 import { sleep } from 'k6';
-import testData from '../data/event-ids.json';
+import testData from '../data/ids.json';
 
 export function randomItem(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-export function getRandomEventId() {
-  return randomItem(testData.eventIds);
+export function getRandomItemId() {
+  return randomItem(testData.ids);
 }
 
 export function thinkTime(min = 1, max = 3) {
@@ -149,11 +148,11 @@ Implement reusable test logic:
 import http from 'k6/http';
 import { check } from 'k6';
 import { getBaseUrl } from '../config/environments.js';
-import { getRandomEventId } from '../utils/helpers.js';
+import { getRandomId } from '../utils/helpers.js';
 
-export function testEventPage(baseUrl) {
-  const eventId = getRandomEventId();
-  const response = http.get(`${baseUrl}/events/${eventId}`);
+export function testPage(baseUrl) {
+  const itemId = getRandomItemId();
+  const response = http.get(`${baseUrl}/${itemId}`);
   
   check(response, {
     'status is 200': (r) => r.status === 200,
@@ -169,7 +168,7 @@ export function testEventPage(baseUrl) {
 Build comprehensive load test:
 
 ```javascript
-import { testEventPage } from './tests/events.test.js';
+import { testPage } from './tests/page.test.js';
 import { getBaseUrl } from './config/environments.js';
 import { thinkTime } from './utils/helpers.js';
 
@@ -187,7 +186,7 @@ export const options = {
 
 export default function() {
   const baseUrl = getBaseUrl();
-  testEventPage(baseUrl);
+  testPage(baseUrl);
   thinkTime(2, 5);
 }
 ```
@@ -198,7 +197,7 @@ Each scenario imports from main test implementation:
 
 ```javascript
 // scenarios/smoke.js
-import { testEventPage } from '../tests/events.test.js';
+import { testPage } from '../tests/page.test.js';
 import { getBaseUrl } from '../config/environments.js';
 
 export const options = {
@@ -214,7 +213,7 @@ export const options = {
 
 export default function() {
   const baseUrl = getBaseUrl();
-  testEventPage(baseUrl);
+  testPage(baseUrl);
   sleep(1);
 }
 ```
@@ -572,20 +571,15 @@ export function teardown(data) {
 
 Store test data in the `perf-test/data/` directory as JSON files for easy maintenance and updates.
 
-**Example: `perf-test/data/event-ids.json`**
+**Example: `perf-test/data/ids.json`**
 ```json
 {
-  "eventIds": [
-    "ec60215",
-    "ec36706",
-    "ec65452",
-    "ec67131"
-  ],
-  "metadata": {
-    "lastUpdated": "2026-03-12",
-    "description": "Active event IDs for load testing.",
-    "howToUpdate": "Replace with active events from QA/staging environment."
-  }
+  "ids": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ]
 }
 ```
 
@@ -594,10 +588,10 @@ Store test data in the `perf-test/data/` directory as JSON files for easy mainte
 In your test files, import data directly:
 
 ```javascript
-import eventData from '../data/event-ids.json';
+import data from '../data/ids.json';
 
 export const testData = {
-  eventIds: eventData.eventIds,
+  ids: data.ids,
   // ... other test data
 };
 ```
@@ -615,9 +609,9 @@ export const testData = {
 
 ```
 perf-test/data/
-├── event-ids.json       # Event identifiers
+├── ids.json       # identifiers
 ├── user-accounts.json   # Test user credentials
-├── product-ids.json     # Product SKUs or IDs
+├── product-ids.json     # Product IDs
 ├── locations.json       # Store/location data
 └── test-config.json     # Test-specific configuration
 ```
@@ -687,7 +681,7 @@ export function getBaseUrl() {
 Each JSON file in `data/` should include a `metadata` section:
 ```json
 {
-  "eventIds": [...],
+  "ids": [...],
   "metadata": {
     "lastUpdated": "2026-03-12",
     "description": "What this data is used for",
@@ -751,16 +745,16 @@ if (__ENV.BASE_URL) {
 ### Importing Test Data
 
 ```javascript
-import eventData from './data/event-ids.json';
+import data from './data/ids.json';
 import userData from './data/user-accounts.json';
 
 export const testData = {
-  eventIds: eventData.eventIds,
+  ids: data.ids,
   users: userData.users,
 };
 
-function getRandomEventId() {
-  return testData.eventIds[Math.floor(Math.random() * testData.eventIds.length)];
+function getRandomId() {
+  return testData.ids[Math.floor(Math.random() * testData.ids.length)];
 }
 ```
 
