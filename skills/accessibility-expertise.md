@@ -1,20 +1,97 @@
 # Accessibility Expertise Skill
 
 ## Purpose
-This skill provides comprehensive guidance on web and mobile accessibility best practices based on the W3C Web Accessibility Initiative (WAI) standards, particularly the Web Content Accessibility Guidelines (WCAG). Use this skill when evaluating, designing, developing, or testing digital products for accessibility compliance.
+This skill provides comprehensive guidance on web and mobile accessibility best practices. **The primary method for accessibility testing and analysis is using the Evinced MCP Tools**, which provide automated accessibility scanning and detailed remediation guidance. For additional context, clarification, and deeper understanding of accessibility principles, refer to the W3C Web Accessibility Initiative (WAI) standards and WCAG guidelines.
 
 ## When to Use This Skill
 - Evaluating websites, applications, or digital content for accessibility compliance
 - Designing user interfaces that are inclusive and accessible to people with disabilities
 - Developing features with accessibility in mind
 - Conducting accessibility audits or reviews
-- Implementing WCAG success criteria
-- Testing for accessibility issues
+- Testing for accessibility issues using Evinced MCP Tools
 - Creating accessible documentation or content
+- Understanding WCAG principles and success criteria
+
+## Primary Tool: Evinced MCP
+
+**Start all accessibility audits with Evinced MCP Tools** for efficient, automated analysis:
+
+### 1. Analyze a Page or Component
+Use `mcp_evinced-lates_evinced_analyze_page` to scan for accessibility issues:
+
+**Parameters:**
+- **tabMode**: `"active_tab"` (analyze current tab) or `"new_tab"` (open and analyze a specific URL)
+- **url**: Required when using `"new_tab"` mode - the URL to analyze
+- **componentSelector**: 
+  - `""` (empty string) - Analyze the entire page
+  - CSS selector (e.g., `".modal-dialog"`, `"#header"`) - Focus on a specific component
+- **model**: Your AI model identifier (e.g., `"claude-sonnet-4"`)
+
+**Returns**: A report with accessibility issues found, including issue signatures and summaries
+
+**When to Use:**
+- At the start of any accessibility review
+- After implementing new features or components
+- During code review for accessibility compliance
+- Before deploying changes to production
+- When investigating reported accessibility issues
+
+### 2. Get Detailed Remediation Guidance
+Use `mcp_evinced-lates_evinced_get_issue_details` to retrieve comprehensive fix instructions:
+
+**Parameters:**
+- **reportId**: The report ID from the analyze_page call
+- **issueSignature**: The specific issue signature to investigate
+- **model**: Your AI model identifier
+
+**Returns**: Detailed information including:
+- **DOM snippet**: Exact code causing the issue
+- **Remediation instructions**: Step-by-step guidance on how to fix
+- **Bounding box**: Visual location of the issue on the page
+- **Additional context**: WCAG criteria violated, severity level
+
+### Recommended Workflow
+
+1. **Initial Scan**: Run `mcp_evinced-lates_evinced_analyze_page` on the page or component you're reviewing
+2. **Review Results**: Examine the report for identified accessibility issues
+3. **Prioritize Issues**: Focus on critical and high-severity issues first
+4. **Get Details**: For each issue, use `mcp_evinced-lates_evinced_get_issue_details` to understand:
+   - What code is causing the problem
+   - How to fix it
+   - Where it's located on the page
+5. **Implement Fixes**: Apply the remediation guidance to your code
+6. **Verify**: Re-run the analysis to confirm issues are resolved
+7. **Manual Testing**: Supplement with keyboard navigation and screen reader testing
+8. **Refer to W3C WAI**: If you need clarification on WCAG principles or best practices, consult the W3C resources
+
+### Component-Level Analysis
+
+For complex UI components, use the `componentSelector` parameter to focus your analysis:
+
+```
+// Analyze just a modal dialog
+componentSelector: ".modal-dialog"
+
+// Analyze a specific form
+componentSelector: "#checkout-form"
+
+// Analyze navigation menu
+componentSelector: "nav.main-navigation"
+```
+
+This targeted approach is especially useful for:
+- Modal dialogs and overlays
+- Complex forms with multiple steps
+- Data tables and grids
+- Custom dropdown menus and autocomplete
+- Carousels and image galleries
+- Interactive charts and visualizations
 
 ## Core Accessibility Principles (POUR)
 
-All accessible digital content must adhere to the four foundational WCAG principles:
+**Reference**: https://www.w3.org/WAI/standards-guidelines/wcag/
+
+For understanding the principles behind accessibility issues identified by Evinced, refer to the four foundational WCAG principles (Perceivable, Operable, Understandable, Robust):
 
 ### 1. Perceivable
 Information and user interface components must be presentable to users in ways they can perceive.
@@ -83,7 +160,9 @@ Content must be robust enough to be interpreted reliably by a wide variety of us
 
 ## WCAG Conformance Levels
 
-WCAG defines three levels of conformance for success criteria:
+**Reference**: https://www.w3.org/WAI/WCAG22/Understanding/conformance#levels
+
+When reviewing Evinced reports, issues are typically mapped to WCAG conformance levels:
 
 ### Level A (Minimum)
 - Essential accessibility features
@@ -127,6 +206,8 @@ WCAG defines three levels of conformance for success criteria:
 **Note**: Content that conforms to WCAG 2.2 automatically conforms to 2.1 and 2.0. Use WCAG 2.2 as the reference standard.
 
 ## Common Accessibility Issues and Solutions
+
+**Note**: These issues are typically detected by Evinced MCP Tools. Use this reference to understand the context and WCAG principles behind the issues you encounter in Evinced reports.
 
 ### Visual Accessibility
 **Issues:**
@@ -230,44 +311,86 @@ WCAG defines three levels of conformance for success criteria:
 
 ## Accessibility Testing Strategy
 
-### Manual Testing
-1. **Keyboard Navigation**
+### 1. PRIMARY: Automated Testing with Evinced MCP
+
+**Always start with Evinced MCP Tools** as your first line of accessibility testing:
+
+#### Step 1: Run Evinced Analysis
+```
+mcp_evinced-lates_evinced_analyze_page
+- tabMode: "active_tab" or "new_tab"
+- url: [URL if using new_tab]
+- componentSelector: "" (full page) or "#component-id" (specific component)
+- model: "claude-sonnet-4"
+```
+
+#### Step 2: Review Report and Get Details
+For each issue in the report, retrieve detailed remediation guidance:
+```
+mcp_evinced-lates_evinced_get_issue_details
+- reportId: [from analyze_page response]
+- issueSignature: [specific issue to investigate]
+- model: "claude-sonnet-4"
+```
+
+#### Step 3: Implement Fixes
+Apply the remediation instructions provided by Evinced to your code
+
+#### Step 4: Re-scan
+Run the analysis again to verify issues are resolved
+
+**Evinced detects:**
+- Missing or incorrect ARIA attributes
+- Color contrast violations
+- Missing alt text and labels
+- Keyboard accessibility issues
+- Semantic HTML problems
+- Focus management issues
+- Form labeling and error handling
+- Heading hierarchy violations
+- And many more WCAG violations
+
+### 2. SUPPLEMENTARY: Manual Testing
+
+**After running Evinced**, supplement with manual testing to catch issues that automated tools miss (approximately 60-70% of issues):
+#### Keyboard Navigation
    - Navigate entire interface using only keyboard
    - Check all interactive elements are reachable and operable
    - Verify visible focus indicators
    - Test modal dialogs and menus for proper focus management
 
-2. **Screen Reader Testing**
+#### Screen Reader Testing
    - Test with at least one screen reader (NVDA, JAWS on Windows; VoiceOver on macOS/iOS; TalkBack on Android)
    - Verify all content is announced correctly
    - Check headings, landmarks, and navigation
    - Test form inputs and error messages
    - Verify dynamic content is announced
 
-3. **Visual Inspection**
+#### Visual Inspection
    - Check color contrast with tools
    - Verify content at 200% zoom
    - Test with different color schemes / dark mode
    - Review alternative text for images
    - Check for text in images
 
-4. **Content and Structure**
+#### Content and Structure
    - Verify heading hierarchy (H1→H2→H3)
    - Check semantic HTML usage
    - Review ARIA usage (avoid over-reliance)
    - Validate HTML markup
    - Review reading order and tab order
 
-### Automated Testing Tools
+### 3. Other Automated Testing Tools (Optional)
+
+If Evinced MCP is not available or you want additional validation, you can use:
 - **axe DevTools**: Browser extension for automated accessibility testing
 - **WAVE**: Web accessibility evaluation tool
 - **Lighthouse**: Built into Chrome DevTools, includes accessibility audit
 - **pa11y**: Command-line accessibility testing tool
-- **Testing Library**: `testing-library/react` and similar with accessibility assertions
 
-**Note**: Automated tools catch only 30-40% of accessibility issues. Manual testing is essential.
+**Note**: Prefer Evinced MCP Tools when available for the most comprehensive automated analysis with detailed remediation guidance.
 
-### Testing with Assistive Technologies
+### 4. Testing with Assistive Technologies
 - **Screen Readers**: NVDA (Windows, free), JAWS (Windows, paid), VoiceOver (macOS/iOS, built-in), TalkBack (Android, built-in)
 - **Screen Magnifiers**: ZoomText, built-in OS magnification
 - **Voice Control**: Dragon NaturallySpeaking, Voice Control on macOS/iOS
@@ -297,14 +420,17 @@ WCAG defines three levels of conformance for success criteria:
 - [ ] Validate HTML markup
 
 ### Testing Phase
-- [ ] Run automated accessibility scans
+- [ ] **Run Evinced MCP analysis** (primary automated testing)
+- [ ] Review Evinced report and get detailed remediation guidance
+- [ ] Implement fixes based on Evinced recommendations
+- [ ] Re-run Evinced to verify fixes
 - [ ] Conduct manual keyboard testing
-- [ ] Test with multiple screen readers
+- [ ] Test with screen readers (NVDA, JAWS, VoiceOver, or TalkBack)
 - [ ] Verify color contrast ratios
 - [ ] Test at 200% zoom
 - [ ] Test on mobile devices with assistive tech
 - [ ] Review with actual users with disabilities (if possible)
-- [ ] Document and fix identified issues
+- [ ] Document all issues and fixes
 
 ### Maintenance Phase
 - [ ] Include accessibility in code reviews
@@ -317,7 +443,12 @@ WCAG defines three levels of conformance for success criteria:
 
 ## Resources and References
 
-### Official W3C WAI Resources
+### Primary Tool
+- **Evinced MCP**: Use the deferred tools `mcp_evinced-lates_evinced_analyze_page` and `mcp_evinced-lates_evinced_get_issue_details` for all accessibility testing
+
+### Reference Documentation (W3C WAI)
+
+Refer to these resources when you need clarification on WCAG principles, success criteria, or accessibility concepts:
 - **WCAG 2.2 Standard**: https://www.w3.org/TR/WCAG22/
 - **WCAG Overview**: https://www.w3.org/WAI/standards-guidelines/wcag/
 - **How to Meet WCAG (Quick Reference)**: https://www.w3.org/WAI/WCAG22/quickref/
@@ -352,6 +483,10 @@ WCAG defines three levels of conformance for success criteria:
 
 ## Conclusion
 
-Accessibility is not a feature or an afterthought—it's a fundamental aspect of quality web development that ensures digital products are usable by everyone, regardless of ability. By following WCAG guidelines and incorporating accessibility throughout the design, development, and testing process, you create better experiences for all users.
+Accessibility is not a feature or an afterthought—it's a fundamental aspect of quality web development that ensures digital products are usable by everyone, regardless of ability.
+
+**Primary Approach**: Always start with Evinced MCP Tools for efficient, automated accessibility analysis with detailed remediation guidance. Supplement with manual testing (keyboard navigation, screen reader testing) to catch issues that automated tools miss.
+
+**Reference Resources**: Use W3C WAI resources (https://www.w3.org/WAI/) when you need deeper understanding of WCAG principles, success criteria, or accessibility concepts beyond what's provided in Evinced reports.
 
 **Remember**: Making content accessible benefits everyone, not just users with disabilities. Accessible design principles lead to clearer content, better usability, improved SEO, and wider audience reach.
