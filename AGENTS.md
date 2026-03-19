@@ -25,8 +25,8 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 | **@doc-researcher** | Researches technical documentation and provides detailed answers | When you need to understand APIs, libraries, or best practices |
 | **@fe-engineer** | Expert frontend engineer for React and JavaScript development | When building UI components, implementing frontend features, or working with React |
 | **@go-engineer** | Expert Go engineer for backend services and microservices | When building backend services, APIs, microservices, or Go applications |
-| **@project-manager** | Clarifies requirements and makes technical decisions | When requirements are unclear or you need guidance on priorities |
-| **@qa-engineer** | Tests features and bug fixes | After implementation to validate functionality |
+| **@project-manager** | Clarifies requirements and makes technical decisions. Can create Jira stories and tasks. | When requirements are unclear or you need guidance on priorities |
+| **@qa-engineer** | Tests features and bug fixes. Can report bugs to Jira. | After implementation to validate functionality |
 
 ---
 
@@ -56,6 +56,7 @@ Skills are reusable methodologies that agents use. You can reference them when w
 ### Project Management Skills
 - **requirements-clarification** - Requirements analysis and acceptance criteria
 - **documentation-research** - Systematic documentation research
+- **jira-integration** - Creating, managing, and tracking Jira issues and work items
 
 ---
 
