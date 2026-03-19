@@ -10,7 +10,8 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 
 ```
 @code-reviewer - Review my recent code changes
-@senior-engineer - Implement the user authentication feature
+@go-engineer - Implement the backend microservice
+@fe-engineer - Build the user dashboard UI
 @project-manager - Clarify the requirements for the export feature
 @qa-engineer - Test the login functionality
 @doc-researcher - Find information about React hooks
@@ -22,8 +23,9 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 |-------|---------|-------------|
 | **@code-reviewer** | Reviews code for quality, clean code principles, and security | After writing or modifying code |
 | **@doc-researcher** | Researches technical documentation and provides detailed answers | When you need to understand APIs, libraries, or best practices |
+| **@fe-engineer** | Expert frontend engineer for React and JavaScript development | When building UI components, implementing frontend features, or working with React |
+| **@go-engineer** | Expert Go engineer for backend services and microservices | When building backend services, APIs, microservices, or Go applications |
 | **@project-manager** | Clarifies requirements and makes technical decisions | When requirements are unclear or you need guidance on priorities |
-| **@senior-engineer** | Implements features and fixes bugs | When you need code written or issues resolved |
 | **@qa-engineer** | Tests features and bug fixes | After implementation to validate functionality |
 
 ---
@@ -54,60 +56,92 @@ Skills are reusable methodologies that agents use. You can reference them when w
 
 ## Common Workflows
 
-### 1. Feature Development
+### 1. Backend Feature Development
 
 ```
-You: @project-manager I need to implement user authentication
+You: @project-manager I need to implement user authentication API
 
 @project-manager: [Clarifies requirements, defines acceptance criteria]
 
-You: @senior-engineer Please implement based on the requirements above
+You: @go-engineer Please implement based on the requirements above
 
-@senior-engineer: [Implements the feature]
+@go-engineer: [Implements the authentication microservice]
 
 You: @code-reviewer Review the authentication implementation
 
 @code-reviewer: [Reviews code quality and security]
 
-You: @qa-engineer Test the authentication feature
+You: @qa-engineer Test the authentication API
 
 @qa-engineer: [Tests and reports any issues]
 ```
 
-### 2. Bug Fix
+### 2. Frontend Feature Development
 
 ```
-You: @senior-engineer Fix: Users can't submit the contact form
+You: @project-manager I need a user dashboard with analytics
 
-@senior-engineer: [Diagnoses and implements fix]
+@project-manager: [Clarifies requirements, defines acceptance criteria]
 
-You: @qa-engineer Verify the contact form fix
+You: @fe-engineer Build the dashboard based on the requirements
+
+@fe-engineer: [Implements the React components and integration]
+
+You: @code-reviewer Review the dashboard implementation
+
+@code-reviewer: [Reviews code quality, accessibility, and performance]
+
+You: @qa-engineer Test the dashboard functionality
+
+@qa-engineer: [Tests and reports any issues]
+```
+
+### 3. Bug Fix (Backend)
+
+```
+You: @go-engineer Fix: API endpoint returning 500 errors
+
+@go-engineer: [Diagnoses and implements fix]
+
+You: @qa-engineer Verify the API fix
 
 @qa-engineer: [Tests and confirms fix works]
 ```
 
-### 3. Documentation Research
+### 4. Bug Fix (Frontend)
 
 ```
-You: @doc-researcher How do I implement OAuth 2.0 authentication in Express.js?
+You: @fe-engineer Fix: Form validation not working on mobile
+
+@fe-engineer: [Diagnoses and implements fix]
+
+You: @qa-engineer Verify the form validation fix
+
+@qa-engineer: [Tests and confirms fix works]
+```
+
+### 5. Documentation Research
+
+```
+You: @doc-researcher How do I implement OAuth 2.0 authentication in Go?
 
 @doc-researcher: [Researches and provides detailed guidance with citations]
 
-You: @senior-engineer Implement OAuth based on the research above
+You: @go-engineer Implement OAuth based on the research above
 
-@senior-engineer: [Implements using the documentation guidance]
+@go-engineer: [Implements using the documentation guidance]
 ```
 
-### 4. Requirements Clarification
+### 6. Requirements Clarification
 
 ```
 You: @project-manager Should the search feature support fuzzy matching?
 
 @project-manager: [Clarifies requirements or escalates to stakeholder if needed]
 
-You: @senior-engineer Implement search with the clarified requirements
+You: @go-engineer Implement search with the clarified requirements
 
-@senior-engineer: [Implements accordingly]
+@go-engineer: [Implements accordingly]
 ```
 
 ---
@@ -120,11 +154,11 @@ You: @senior-engineer Implement search with the clarified requirements
 
 2. **Chain Agents**: Use multiple agents in sequence for complex workflows
    - First clarify requirements with @project-manager
-   - Then implement with @senior-engineer
+   - Then implement with @go-engineer (backend) or @fe-engineer (frontend)
    - Finally test with @qa-engineer
 
 3. **Reference Skills**: Agents automatically use skills, but you can reference them explicitly
-   - "@senior-engineer Follow the software-development-lifecycle skill to implement this feature"
+   - "@go-engineer Follow the software-development-lifecycle skill to implement this feature"
 
 4. **Provide Files**: Include relevant files or code snippets for context
    - Attach files to your chat message
@@ -153,8 +187,8 @@ Additionally, **@doc-researcher** has:
 
 ## Configuration Location
 
-- Agents: `.github/copilot/agents/`
-- Skills: `.github/copilot/skills/`
+- Agents: `agents/`
+- Skills: `skills/`
 
 To modify an agent or skill, edit the corresponding markdown file in these directories.
 
@@ -163,8 +197,8 @@ To modify an agent or skill, edit the corresponding markdown file in these direc
 ## Next Steps
 
 1. **Try an agent**: Open Copilot chat (Cmd/Ctrl + I) and type `@code-reviewer review my code`
-2. **Explore skills**: Read through `.github/copilot/skills/` to understand available methodologies
+2. **Explore skills**: Read through `skills/` to understand available methodologies
 3. **Customize**: Edit agent files to adjust their behavior for your specific needs
 4. **Create workflows**: Develop your own multi-agent workflows for common tasks
 
-For questions or issues, refer to the individual agent files in `.github/copilot/agents/` for detailed documentation.
+For questions or issues, refer to the individual agent files in `agents/` for detailed documentation.
