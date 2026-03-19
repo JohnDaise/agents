@@ -46,7 +46,12 @@ Skills are reusable methodologies that agents use. You can reference them when w
 ### QA Skills
 - **qa-test-execution** - Systematic testing workflow
 - **defect-management** - Bug reporting and tracking
+- **k6-performance-testing** - Performance testing with k6
 - **testing-strategy** - Comprehensive testing methodology
+
+### Accessibility Skills
+- **evinced-sdk-setup** - Setup and manage Evinced MCP server for accessibility testing
+- **accessibility-expertise** - Web accessibility best practices and WCAG compliance
 
 ### Project Management Skills
 - **requirements-clarification** - Requirements analysis and acceptance criteria

@@ -3,6 +3,13 @@
 ## Purpose
 This skill provides comprehensive guidance on web and mobile accessibility best practices. **The primary method for accessibility testing and analysis is using the Evinced MCP Tools**, which provide automated accessibility scanning and detailed remediation guidance. For additional context, clarification, and deeper understanding of accessibility principles, refer to the W3C Web Accessibility Initiative (WAI) standards and WCAG guidelines.
 
+## Prerequisites
+
+**IMPORTANT**: Before using this skill, ensure the Evinced MCP server is running:
+- Use the **evinced-sdk-setup** skill to check and start the Evinced server if needed
+- Verify MCP tools are available by searching for "evinced" tools
+- If tools are not available, follow the evinced-sdk-setup workflow to start the server
+
 ## When to Use This Skill
 - Evaluating websites, applications, or digital content for accessibility compliance
 - Designing user interfaces that are inclusive and accessible to people with disabilities
