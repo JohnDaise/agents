@@ -25,8 +25,56 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 | **@doc-researcher** | Researches technical documentation and provides detailed answers | When you need to understand APIs, libraries, or best practices |
 | **@fe-engineer** | Expert frontend engineer for React and JavaScript development | When building UI components, implementing frontend features, or working with React |
 | **@go-engineer** | Expert Go engineer for backend services and microservices | When building backend services, APIs, microservices, or Go applications |
-| **@project-manager** | Clarifies requirements and makes technical decisions. Can create Jira stories and tasks. | When requirements are unclear or you need guidance on priorities |
+| **@project-manager** | **NEW: Orchestrates full development lifecycle** from requirements to delivery, coordinating engineers, reviewers, and QA. Also clarifies requirements and makes technical decisions. Can create Jira stories and tasks. | When you want automated end-to-end feature delivery OR when requirements are unclear |
 | **@qa-engineer** | Tests features and bug fixes. Can report bugs to Jira. | After implementation to validate functionality |
+
+---
+
+## NEW: Automated Orchestration Mode
+
+The **@project-manager** agent now supports **proactive orchestration mode**, which automates the entire development lifecycle from requirements to delivery.
+
+### How It Works
+
+When you give @project-manager a feature request, it will:
+
+1. ✅ **Analyze requirements** and create REQUIREMENTS.md
+2. ✅ **Coordinate engineers** (@go-engineer or @fe-engineer)
+3. ✅ **Manage code review** with @code-reviewer
+4. ✅ **Coordinate testing** with @qa-engineer
+5. ✅ **Iterate until complete** (review → fix → test → repeat)
+6. ✅ **Demonstrate the solution** for your review
+
+### When to Use Orchestration Mode
+
+**Use orchestration when you want**:
+- Automated end-to-end delivery with minimal manual coordination
+- A complete feature built following best practices
+- Systematic review and testing integrated into the workflow
+- Documentation (REQUIREMENTS.md) created automatically
+
+**Use manual mode when you want**:
+- More control over each step
+- To implement it yourself with guidance
+- To learn the process by doing it manually
+- Quick clarifications without full implementation
+
+### Example
+
+```bash
+# Orchestration Mode (Automated)
+You: @project-manager Build a user registration API with email validation
+
+@project-manager: [Orchestrates entire workflow automatically]
+                  Creates REQUIREMENTS.md → Invokes engineer → Reviews code → Tests → Delivers
+
+# Manual Mode (Step-by-step)
+You: @project-manager What should a user registration API include?
+@project-manager: [Provides guidance]
+You: @go-engineer Implement based on guidance above
+You: @code-reviewer Review the implementation
+You: @qa-engineer Test the implementation
+```
 
 ---
 
@@ -64,6 +112,36 @@ Skills are reusable methodologies that agents use. You can reference them when w
 
 ### 1. Backend Feature Development
 
+**Option A: Fully Orchestrated (Automated)**
+
+```
+You: @project-manager I need to implement user authentication API
+
+@project-manager: [Analyzes requirements, creates REQUIREMENTS.md]
+                  ↓
+              [Shows requirements for approval]
+                  ↓
+              [Invokes @go-engineer to implement]
+                  ↓
+              [Monitors progress, answers questions]
+                  ↓
+              [Coordinates @code-reviewer for review]
+                  ↓
+              [Addresses review feedback with @go-engineer if needed]
+                  ↓
+              [Coordinates @qa-engineer for testing]
+                  ↓
+              [Addresses QA feedback with @go-engineer if needed]
+                  ↓
+              [Iterates review-test cycle until complete]
+                  ↓
+              [Demonstrates working solution]
+
+You: [Review and commit the code]
+```
+
+**Option B: Manual Step-by-Step**
+
 ```
 You: @project-manager I need to implement user authentication API
 
@@ -83,6 +161,18 @@ You: @qa-engineer Test the authentication API
 ```
 
 ### 2. Frontend Feature Development
+
+**Option A: Fully Orchestrated (Automated)**
+
+```
+You: @project-manager I need a user dashboard with analytics
+
+@project-manager: [Complete orchestrated workflow from requirements to delivery]
+
+You: [Review and commit the code]
+```
+
+**Option B: Manual Step-by-Step**
 
 ```
 You: @project-manager I need a user dashboard with analytics
