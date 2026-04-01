@@ -7,7 +7,23 @@ description: Systematic workflow for implementing software features from require
 
 A systematic, step-by-step approach to implementing software features and fixes.
 
+**KEY PRINCIPLE**: Test-Driven Development (TDD) is MANDATORY in Step 4
+
 ## The 7-Step Development Workflow
+
+**IMPORTANT**: Step 4 uses Test-Driven Development (TDD) - write tests BEFORE implementation
+
+```
+1. Understand Requirements    → Know what to build
+2. Clarify Ambiguities        → Remove uncertainties  
+3. Plan Implementation        → Design the approach
+4. Implement with TDD         → 🔴 RED → 🟢 GREEN → 🔵 REFACTOR (repeat)
+5. Validate & Verify          → Ensure all tests pass
+6. Review (Optional)          → Get feedback
+7. Document & Deploy          → Prepare for production
+```
+
+---
 
 ### Step 1: Understand Requirements
 
@@ -90,19 +106,46 @@ A systematic, step-by-step approach to implementing software features and fixes.
 
 ---
 
-### Step 4: Implement Solution
+### Step 4: Implement Solution (Using TDD)
 
-**Objective**: Write clean, correct, maintainable code
+**Objective**: Write clean, correct, maintainable code using Test-Driven Development
 
-**Activities**:
-1. **Start with the simplest approach** - resist over-engineering
-2. **Implement incrementally**: One logical piece at a time
-3. **Follow clean code principles**: SRP, DRY, KISS, meaningful names
-4. **Handle errors gracefully**: Validate inputs, handle exceptions
-5. **Add logging**: For debugging and monitoring
-6. **Write self-documenting code**: Clear structure and naming
-7. **Add comments for complexity**: Explain WHY, not WHAT
-8. **Test as you go**: Verify each piece works before moving on
+**CRITICAL: Follow the Red-Green-Refactor Cycle**
+
+#### TDD Workflow (MANDATORY)
+
+**For each small piece of functionality:**
+
+1. **🔴 RED: Write a Failing Test**
+   - Write test that defines expected behavior
+   - Run test → verify it FAILS (if it passes, test is wrong)
+   - Failure message should be clear and helpful
+   - **NEVER skip this step**
+
+2. **🟢 GREEN: Make Test Pass**
+   - Write the MINIMUM code to make test pass
+   - Don't add extra features or perfect it yet
+   - Run test → verify it PASSES
+   - All other tests should still pass (no regressions)
+
+3. **🔵 REFACTOR: Improve Code**
+   - Clean up code while keeping tests green
+   - Remove duplication
+   - Improve naming and structure
+   - Run tests after each refactor → verify still PASSING
+
+4. **Repeat** for next small piece of functionality
+
+#### Implementation Activities:
+1. **Write test first** - RED phase (failing test)
+2. **Implement to pass test** - GREEN phase (minimum code)
+3. **Refactor if needed** - REFACTOR phase (clean up)
+4. **Start with the simplest approach** - resist over-engineering
+5. **Follow clean code principles**: SRP, DRY, KISS, meaningful names
+6. **Handle errors gracefully**: Validate inputs, handle exceptions
+7. **Add logging**: For debugging and monitoring
+8. **Write self-documenting code**: Clear structure and naming
+9. **Add comments for complexity**: Explain WHY, not WHAT
 
 **Best Practices**:
 - Make small, focused commits
@@ -114,7 +157,15 @@ A systematic, step-by-step approach to implementing software features and fixes.
 - **Start simple, refactor later if needed**
 - **Don't abstract until you have 3+ similar cases**
 
-**Red Flags - Stop and Simplify If You're Doing This**:
+**TDD Red Flags - Stop Immediately If This Happens**:
+🚨 **Writing implementation before writing test** - STOP, write test first
+🚨 **Test passing on first run** - Test is wrong or not testing new code
+🚨 **Continuing with failing tests** - STOP, fix tests before proceeding
+🚨 **Skipping the RED phase** - Must see test fail first
+🚨 **Not running tests frequently** - Run after every small change
+🚨 **Committing failing tests** - All tests must be green before commit
+
+**Simplicity Red Flags**:
 ⛔ Adding frameworks/libraries before trying simple solutions
 ⛔ Creating abstractions before patterns emerge
 ⛔ Building features "just in case" (YAGNI violation)
@@ -124,22 +175,31 @@ A systematic, step-by-step approach to implementing software features and fixes.
 ⛔ Adding middleware, interceptors, decorators upfront
 ⛔ Complex design patterns when straightforward code works
 
-**Output**: Working implementation that solves the problem simply
+**Output**: Working, tested implementation with all tests passing (GREEN)
 
 ---
 
-### Step 5: Test & Validate
+### Step 5: Validate & Verify
 
-**Objective**: Ensure the solution works correctly and meets requirements
+**Objective**: Ensure all tests pass and solution meets requirements
+
+**If you followed TDD properly, most testing is already done!**
 
 **Activities**:
-1. **Write automated tests**: Unit tests for logic, integration tests for interactions
-2. **Test happy path**: Verify normal/expected usage works
-3. **Test edge cases**: Boundary conditions, empty/null values, large datasets
-4. **Test error scenarios**: Invalid inputs, system failures, timeouts
-5. **Verify against requirements**: Check all acceptance criteria
-6. **Perform manual testing**: Use the feature as a user would
-7. **Check for regressions**: Ensure existing functionality still works
+1. **Run full test suite**: All tests should be GREEN ✅
+2. **Verify test coverage**: Ensure critical paths are tested
+3. **Test edge cases**: If any edge cases were missed, add tests now (TDD cycle)
+4. **Check acceptance criteria**: Verify all requirements met
+5. **Perform manual testing**: Quick smoke test as a user
+6. **Check for regressions**: Ensure existing functionality still works
+7. **Review test quality**: Are tests clear, focused, and valuable?
+
+**If Tests Are Failing**:
+- ❌ **DO NOT PROCEED** - Failing tests are blockers
+- 🔍 **Debug immediately** - Find root cause
+- 🔧 **Fix the issue** - Either test or implementation is wrong
+- ✅ **Get to green** - All tests must pass before moving forward
+- 📢 **Escalate if stuck** - Ask project-manager if blocked
 
 **Testing Levels**:
 - **Unit Tests**: Individual functions/methods in isolation
