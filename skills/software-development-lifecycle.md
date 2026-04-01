@@ -57,27 +57,36 @@ A systematic, step-by-step approach to implementing software features and fixes.
 
 ### Step 3: Plan Implementation
 
-**Objective**: Design the solution before writing code
+**Objective**: Design the simplest solution that meets requirements
 
 **Activities**:
-1. **Break down the work** into logical, manageable steps
-2. **Identify affected components**: Files, classes, functions, databases
-3. **Choose architecture/patterns**: Design patterns, data structures
-4. **Plan error handling**: Edge cases, validation, error messages
-5. **Design data flow**: Inputs, transformations, outputs
-6. **Determine testing approach**: Unit, integration, manual tests
-7. **Estimate complexity**: Consider if task should be broken into subtasks
+1. **Start with the simplest approach** - resist over-engineering
+2. **Break down the work** into logical, manageable steps
+3. **Identify affected components**: Files, classes, functions, databases
+4. **Choose the straightforward path**: Avoid complex patterns unless necessary
+5. **Plan error handling**: Edge cases, validation, error messages
+6. **Design data flow**: Inputs, transformations, outputs
+7. **Determine testing approach**: Unit, integration, manual tests
+8. **Estimate complexity**: Consider if task should be broken into subtasks
 
 **Questions to Answer**:
+- What's the SIMPLEST way to solve this?
 - What files/modules need to change?
 - What new components need to be created?
-- What design patterns apply?
+- Do I really need this abstraction/pattern, or can I keep it simple?
 - What are the error/edge cases?
 - How will this be tested?
 - Are there performance implications?
 - Are there security considerations?
 
-**Output**: Implementation plan with ordered steps and affected components
+**Anti-Patterns to Avoid**:
+- ❌ Adding abstractions before you have 3+ similar cases
+- ❌ Using frameworks/libraries when simple code works
+- ❌ Building for scale you don't have yet
+- ❌ Adding features "just in case" (YAGNI)
+- ❌ Complex design patterns when straightforward code suffices
+
+**Output**: Simple, clear implementation plan that solves the actual problem
 
 ---
 
@@ -86,13 +95,14 @@ A systematic, step-by-step approach to implementing software features and fixes.
 **Objective**: Write clean, correct, maintainable code
 
 **Activities**:
-1. **Implement incrementally**: One logical piece at a time
-2. **Follow clean code principles**: SRP, DRY, KISS, meaningful names
-3. **Handle errors gracefully**: Validate inputs, handle exceptions
-4. **Add logging**: For debugging and monitoring
-5. **Write self-documenting code**: Clear structure and naming
-6. **Add comments for complexity**: Explain WHY, not WHAT
-7. **Test as you go**: Verify each piece works before moving on
+1. **Start with the simplest approach** - resist over-engineering
+2. **Implement incrementally**: One logical piece at a time
+3. **Follow clean code principles**: SRP, DRY, KISS, meaningful names
+4. **Handle errors gracefully**: Validate inputs, handle exceptions
+5. **Add logging**: For debugging and monitoring
+6. **Write self-documenting code**: Clear structure and naming
+7. **Add comments for complexity**: Explain WHY, not WHAT
+8. **Test as you go**: Verify each piece works before moving on
 
 **Best Practices**:
 - Make small, focused commits
@@ -101,8 +111,20 @@ A systematic, step-by-step approach to implementing software features and fixes.
 - Handle edge cases explicitly
 - Use appropriate data structures
 - Follow existing code patterns/style
+- **Start simple, refactor later if needed**
+- **Don't abstract until you have 3+ similar cases**
 
-**Output**: Working implementation that solves the problem
+**Red Flags - Stop and Simplify If You're Doing This**:
+⛔ Adding frameworks/libraries before trying simple solutions
+⛔ Creating abstractions before patterns emerge
+⛔ Building features "just in case" (YAGNI violation)
+⛔ Deep inheritance hierarchies or complex class structures
+⛔ Over-modularizing - don't make everything a separate module/package
+⛔ Premature optimization without profiling
+⛔ Adding middleware, interceptors, decorators upfront
+⛔ Complex design patterns when straightforward code works
+
+**Output**: Working implementation that solves the problem simply
 
 ---
 
@@ -222,11 +244,15 @@ A systematic, step-by-step approach to implementing software features and fixes.
 - Review your own code before requesting review
 - Follow existing patterns and conventions
 
-### Efficiency
-- Don't over-engineer
+### Efficiency & Simplicity
+- **Start simple, add complexity only when needed**
+- **YAGNI**: Don't build features you don't need today
+- **Wait for patterns**: Abstract after 3+ similar cases, not before
+- **Question complexity**: If it feels complex, find a simpler way
 - Reuse existing solutions when appropriate
 - Automate repetitive tasks
 - Balance perfection with pragmatism
+- **Prefer boring, proven solutions over novel approaches**
 
 ### Risk Management
 - Identify risks early in planning
@@ -246,6 +272,10 @@ A systematic, step-by-step approach to implementing software features and fixes.
 ❌ **Committing untested code** - always verify before commit
 ❌ **Unclear commit messages** - future you (and team) will thank you
 ❌ **Forgetting documentation** - code is read more than written
+❌ **Over-engineering solutions** - starting complex instead of simple
+❌ **Premature abstraction** - abstracting before patterns emerge
+❌ **Adding "just in case" features** - YAGNI violations
+❌ **Optimizing before profiling** - guessing at performance problems
 
 ---
 

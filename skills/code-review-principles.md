@@ -27,6 +27,9 @@ Apply these fundamental principles when reviewing code:
 - Prefer simple, straightforward solutions over "clever" code
 - Avoid premature optimization
 - Complex logic is broken into simpler components
+- **No over-engineering**: Solution should be appropriate for the problem scale
+- **YAGNI**: Don't add features or abstractions "just in case"
+- **Avoid premature abstraction**: Wait for patterns to emerge naturally
 
 ## 5. Code Readability
 - Code is self-documenting through clear structure and naming
@@ -46,6 +49,14 @@ Apply these fundamental principles when reviewing code:
 - No tight coupling
 - Changes won't cause ripple effects
 
+## 8. Simplicity & Avoiding Over-Engineering
+- Solution matches problem complexity - not over or under engineered
+- No premature abstractions (wait for 3+ similar cases)
+- Minimal dependencies - standard library preferred
+- No unused or "just in case" code
+- Straightforward approach over clever/complex patterns
+- No building for theoretical future requirements (YAGNI)
+
 ## Review Output Format
 
 Organize feedback by priority level:
@@ -53,18 +64,21 @@ Organize feedback by priority level:
 ### 🔴 Critical Issues (must fix)
 - Bugs or potential runtime errors
 - Major architecture violations
+- Over-engineered solutions that should be simplified
 
 ### 🟡 Warnings (should fix)
 - Code smells and maintainability concerns
 - Performance issues
 - Inconsistent patterns
 - Missing error handling
+- Unnecessary complexity or abstractions
 
 ### 🟢 Suggestions (consider improving)
 - Readability enhancements
 - Better naming opportunities
 - Simplification possibilities
 - Documentation improvements
+- Opportunities to reduce dependencies or complexity
 
 ## For Each Issue
 
