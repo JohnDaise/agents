@@ -74,9 +74,9 @@ Follow the software-development-lifecycle skill.
 
 ---
 
-#### Step 2: Create REQUIREMENTS.md
+#### Step 2: Create REQUIREMENTS.md and AGENT_LOG.md
 
-**Objective**: Document acceptance criteria and success metrics
+**Objective**: Document acceptance criteria and initialise the activity log
 
 **Activities**:
 1. Create a `REQUIREMENTS.md` file in the workspace root
@@ -90,8 +90,31 @@ Follow the software-development-lifecycle skill.
    - **Dependencies**: Related systems, APIs, or components
 3. Show REQUIREMENTS.md to user for approval
 4. Make adjustments based on user feedback
+5. Create `AGENT_LOG.md` in the workspace root with the following initial structure:
 
-**Output**: Approved REQUIREMENTS.md file with clear acceptance criteria
+```markdown
+# Agent Activity Log
+
+**Feature**: <feature name>
+**Started**: <timestamp>
+**Orchestrator**: project-manager
+
+---
+
+## Log Entries
+
+| # | Timestamp | Agent | Action | Summary | Outcome |
+|---|-----------|-------|--------|---------|---------|
+| 1 | <timestamp> | project-manager | Requirements analysis | Analysed user request and created REQUIREMENTS.md | ✅ Complete |
+```
+
+**Logging Rule**: After **every** `runSubagent` call and every verification gate in the steps below, append a new row to the AGENT_LOG.md table using this format:
+
+| `<row #>` | `<timestamp>` | `<agent name>` | `<action>` | `<1-sentence summary of what was asked>` | `✅ Complete` / `⚠️ Needs rework` / `❌ Blocked` |
+
+Keep the log file updated throughout the entire workflow so the user can review it at any time.
+
+**Output**: Approved REQUIREMENTS.md and initialised AGENT_LOG.md
 
 ---
 
@@ -110,6 +133,7 @@ Follow the software-development-lifecycle skill.
    - Any constraints or decisions made during requirements gathering
    - Instruction to follow the software-development-lifecycle skill
 3. Call `runSubagent` and wait for the result
+4. Append a row to AGENT_LOG.md recording the agent invoked, task delegated, and outcome
 
 **Output**: Engineering agent completes implementation and returns a summary
 
@@ -130,7 +154,8 @@ Follow the software-development-lifecycle skill.
    - Run `git status` to confirm new or modified files are committed (not just staged or dirty)
    - Run the project's test command (e.g., `go test ./...`, `npm test`) and confirm it exits with code 0
    - If tests fail or no changes are committed, treat this as a blocker and re-invoke the engineer with the failure output
-4. If output is complete and verification passes, proceed to Step 5
+4. Append a row to AGENT_LOG.md recording the verification result (pass or fail with details)
+5. If output is complete and verification passes, proceed to Step 5
 
 **Output**: Engineer implementation verified as complete with tests passing
 
@@ -152,6 +177,7 @@ Follow the software-development-lifecycle skill.
    - An explicit approval statement (e.g., "Approved", "LGTM", "No issues found"), OR
    - A structured list of findings with severity labels
    - If the output is empty or ambiguous, re-invoke code-reviewer with a note to provide an explicit verdict
+5. Append a row to AGENT_LOG.md recording the review verdict and any critical/warning items found
 
 **Output**: Code review completed with structured feedback or explicit approval
 
@@ -167,7 +193,8 @@ Follow the software-development-lifecycle skill.
    - Include the full reviewer feedback verbatim in the prompt
    - Instruct the engineer to address all Critical items and the most important Warnings
    - After the engineer responds, return to **Step 5** for re-review
-   - **Stopping condition**: If the review-fix cycle has run **3 or more times** without all Critical items being resolved, stop and report the blocker to the user with a summary of outstanding issues
+   - Append a row to AGENT_LOG.md for each re-invocation (engineer fix + re-review) with the cycle number
+   - **Stopping condition**: If the review-fix cycle has run **3 or more times** without all Critical items being resolved, stop and report the blocker to the user with a summary of outstanding issues; log the escalation in AGENT_LOG.md
 2. If the reviewer gave explicit approval (no Critical items):
    - Proceed to Step 7
 
@@ -190,6 +217,7 @@ Follow the software-development-lifecycle skill.
 4. **Ground-truth verification gate** — confirm the QA output contains an explicit verdict:
    - Each acceptance criterion must be listed with a clear ✅ PASS or ❌ FAIL status
    - If the output lacks explicit verdicts (e.g., only prose summary), re-invoke qa-engineer and request a structured pass/fail list before proceeding
+5. Append a row to AGENT_LOG.md recording the QA verdict and any failing criteria
 
 **Output**: QA testing completed with explicit pass/fail verdict per acceptance criterion
 
@@ -204,7 +232,8 @@ Follow the software-development-lifecycle skill.
    - Use `runSubagent` to re-invoke the original engineer
    - Include the full QA report verbatim in the prompt — do not summarize or filter bug details
    - After engineer responds, return to **Step 5** (code review) then **Step 7** (QA re-test)
-   - **Stopping condition**: If the review-fix-test cycle has run **3 or more times** without all acceptance criteria passing, stop and escalate to the user with a summary of remaining failures
+   - Append a row to AGENT_LOG.md for each re-invocation with the cycle number and bugs being fixed
+   - **Stopping condition**: If the review-fix-test cycle has run **3 or more times** without all acceptance criteria passing, stop and escalate to the user with a summary of remaining failures; log the escalation in AGENT_LOG.md
 2. If the qa-engineer confirmed all acceptance criteria pass:
    - Proceed to Step 9
 
@@ -241,7 +270,11 @@ Follow the software-development-lifecycle skill.
 **Objective**: Present completed feature for user acceptance
 
 **Activities**:
-1. Prepare demonstration summary:
+1. Append a final row to AGENT_LOG.md:
+
+   | `<row #>` | `<timestamp>` | `project-manager` | Delivery complete | All acceptance criteria passed; feature ready for user review | ✅ Complete |
+
+2. Prepare demonstration summary:
    - What was built
    - How acceptance criteria were met
    - Key implementation decisions
