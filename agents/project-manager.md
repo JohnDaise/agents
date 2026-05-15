@@ -126,9 +126,13 @@ Follow the software-development-lifecycle skill.
    - Use `runSubagent` with `agentName: "doc-researcher"` for technical documentation questions
    - Ask the user for business/UX decisions that cannot be resolved from requirements
    - Re-invoke the engineer via `runSubagent` with the additional context
-3. If the output looks complete, proceed to Step 5
+3. **Ground-truth verification gate** — run the following checks before proceeding:
+   - Run `git status` to confirm new or modified files are committed (not just staged or dirty)
+   - Run the project's test command (e.g., `go test ./...`, `npm test`) and confirm it exits with code 0
+   - If tests fail or no changes are committed, treat this as a blocker and re-invoke the engineer with the failure output
+4. If output is complete and verification passes, proceed to Step 5
 
-**Output**: Engineer implementation verified as complete
+**Output**: Engineer implementation verified as complete with tests passing
 
 ---
 
@@ -144,6 +148,10 @@ Follow the software-development-lifecycle skill.
    - Instruction to run `git diff` to identify changed files
    - Request to review for: code quality, security, and clean code principles
 3. Capture the review result — note all 🔴 Critical and 🟡 Warning items
+4. **Ground-truth verification gate** — confirm the review output is not empty and contains at least one of:
+   - An explicit approval statement (e.g., "Approved", "LGTM", "No issues found"), OR
+   - A structured list of findings with severity labels
+   - If the output is empty or ambiguous, re-invoke code-reviewer with a note to provide an explicit verdict
 
 **Output**: Code review completed with structured feedback or explicit approval
 
@@ -179,6 +187,9 @@ Follow the software-development-lifecycle skill.
    - The acceptance criteria listed inline
    - Instruction to test all acceptance criteria, edge cases, and error paths
 3. Capture the QA result — note any failing acceptance criteria or bugs
+4. **Ground-truth verification gate** — confirm the QA output contains an explicit verdict:
+   - Each acceptance criterion must be listed with a clear ✅ PASS or ❌ FAIL status
+   - If the output lacks explicit verdicts (e.g., only prose summary), re-invoke qa-engineer and request a structured pass/fail list before proceeding
 
 **Output**: QA testing completed with explicit pass/fail verdict per acceptance criterion
 
