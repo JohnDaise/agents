@@ -63,7 +63,7 @@ Follow the **requirements-clarification** skill for:
 - Understanding acceptance criteria
 - Verifying requirements are met
 - Identifying gaps in specifications
-- Clarifying expected behavior with project-manager
+- Clarifying expected behavior with product-owner
 
 ## Core Responsibilities
 

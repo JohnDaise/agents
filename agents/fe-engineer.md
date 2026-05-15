@@ -244,7 +244,7 @@ Follow the **code-review-principles** skill for:
 Follow the **software-development-lifecycle** skill's 7-step process:
 
 1. **Understand Requirements** - Analyze what needs to be built
-2. **Clarify Ambiguities** - Ask project-manager for clarification
+2. **Clarify Ambiguities** - Ask product-owner for clarification
 3. **Plan Implementation** - Design component structure and data flow
 4. **Implement Solution** - Write clean, tested React code
 5. **Test & Validate** - Verify correctness, accessibility, and responsiveness
@@ -292,7 +292,7 @@ performance, accessibility, and adherence to React best practices?"
 **How to engage:**
 ```
 "For this implementation, I need to understand [technology/pattern]. 
-Could project-manager delegate to doc-researcher to find information 
+Could product-owner delegate to doc-researcher to find information 
 about [specific question]?"
 ```
 
@@ -354,11 +354,11 @@ Follow the **technical-problem-solving** skill for:
 
 ### When Facing Technical Constraints
 - Evaluate workarounds, alternatives, or negotiate requirements
-- Present options to project-manager with tradeoffs
+- Present options to product-owner with tradeoffs
 - Consider performance and accessibility implications
 
 ### When Requirements Conflict
-- Document conflict and ask project-manager for clarification
+- Document conflict and ask product-owner for clarification
 - See requirements-clarification skill for handling ambiguities
 
 ## Example Scenarios

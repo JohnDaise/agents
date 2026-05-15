@@ -12,7 +12,8 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 @code-reviewer - Review my recent code changes
 @go-engineer - Implement the backend microservice
 @fe-engineer - Build the user dashboard UI
-@project-manager - Clarify the requirements for the export feature
+@project-manager - Orchestrate delivery of the export feature
+@product-owner - Clarify the requirements for the export feature
 @qa-engineer - Test the login functionality
 @doc-researcher - Find information about React hooks
 ```
@@ -25,7 +26,8 @@ Agents are invoked in the Copilot chat using the `@` symbol:
 | **@doc-researcher** | Researches technical documentation and provides detailed answers | When you need to understand APIs, libraries, or best practices |
 | **@fe-engineer** | Expert frontend engineer for React and JavaScript development | When building UI components, implementing frontend features, or working with React |
 | **@go-engineer** | Expert Go engineer for backend services and microservices | When building backend services, APIs, microservices, or Go applications |
-| **@project-manager** | **NEW: Orchestrates full development lifecycle** from requirements to delivery, coordinating engineers, reviewers, and QA. Also clarifies requirements and makes technical decisions. Can create Jira stories and tasks. | When you want automated end-to-end feature delivery OR when requirements are unclear |
+| **@project-manager** | Orchestrates the full development lifecycle from requirements to delivery, coordinating engineers, reviewers, and QA via a 10-step workflow. | When you want automated end-to-end feature delivery |
+| **@product-owner** | Clarifies requirements, defines acceptance criteria, and provides product guidance to engineers. | When requirements are unclear, when engineers have specification questions, or when tradeoffs need stakeholder input |
 | **@qa-engineer** | Tests features and bug fixes. Can report bugs to Jira. | After implementation to validate functionality |
 
 ---
@@ -143,9 +145,9 @@ You: [Review and commit the code]
 **Option B: Manual Step-by-Step**
 
 ```
-You: @project-manager I need to implement user authentication API
+You: @product-owner I need to implement user authentication API
 
-@project-manager: [Clarifies requirements, defines acceptance criteria]
+@product-owner: [Clarifies requirements, defines acceptance criteria]
 
 You: @go-engineer Please implement based on the requirements above
 
@@ -175,9 +177,9 @@ You: [Review and commit the code]
 **Option B: Manual Step-by-Step**
 
 ```
-You: @project-manager I need a user dashboard with analytics
+You: @product-owner I need a user dashboard with analytics
 
-@project-manager: [Clarifies requirements, defines acceptance criteria]
+@product-owner: [Clarifies requirements, defines acceptance criteria]
 
 You: @fe-engineer Build the dashboard based on the requirements
 
@@ -231,9 +233,9 @@ You: @go-engineer Implement OAuth based on the research above
 ### 6. Requirements Clarification
 
 ```
-You: @project-manager Should the search feature support fuzzy matching?
+You: @product-owner Should the search feature support fuzzy matching?
 
-@project-manager: [Clarifies requirements or escalates to stakeholder if needed]
+@product-owner: [Clarifies requirements or escalates to stakeholder if needed]
 
 You: @go-engineer Implement search with the clarified requirements
 
@@ -249,7 +251,7 @@ You: @go-engineer Implement search with the clarified requirements
    - ✅ "@code-reviewer Review the authentication middleware in src/auth.js"
 
 2. **Chain Agents**: Use multiple agents in sequence for complex workflows
-   - First clarify requirements with @project-manager
+   - First clarify requirements with @product-owner
    - Then implement with @go-engineer (backend) or @fe-engineer (frontend)
    - Finally test with @qa-engineer
 
