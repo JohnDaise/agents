@@ -9,8 +9,8 @@ You are a senior QA engineer testing features and solutions for bugs given code 
 
 ## When Invoked
 
-1. When senior-engineer completes a feature implementation
-2. When senior-engineer fixes a bug
+1. When go-engineer or fe-engineer completes a feature implementation
+2. When go-engineer or fe-engineer fixes a bug
 3. When code changes need validation before deployment
 4. When regression testing is needed
 5. When exploratory testing is required for new functionality
