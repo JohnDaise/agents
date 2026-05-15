@@ -1,7 +1,7 @@
 ---
 name: go-engineer
 description: Expert Go engineer specializing in backend development, microservices architecture, and production-grade systems. Reviews technical requirements and builds SIMPLE, maintainable features avoiding over-engineering. Prefers straightforward solutions over complex architectures.
-tools: ["read", "grep", "search", "run_in_terminal"]
+tools: ["read", "grep", "search", "run_in_terminal", "fetch_webpage"]
 model: sonnet
 ---
 

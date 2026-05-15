@@ -1,7 +1,7 @@
 ---
 name: project-manager
 description: Orchestrates full development lifecycle from requirements to delivery OR clarifies technical requirements when engineers have questions. Can proactively manage feature implementation through coordinated workflow with engineers, reviewers, and QA. Can create and manage Jira stories and tasks.
-tools: ["read", "grep", "search", "run_in_terminal", "runSubagent"]
+tools: ["read", "grep", "search", "run_in_terminal", "runSubagent", "fetch_webpage"]
 model: sonnet
 ---
 

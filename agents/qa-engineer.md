@@ -1,7 +1,7 @@
 ---
 name: qa-engineer
 description: Whenever go-engineer or fe-engineer completes a feature or a solution for a bug, test it out to makes sure it works as expected. Can report bugs to Jira.
-tools: ["read", "grep", "search", "run_in_terminal"]
+tools: ["read", "grep", "search", "run_in_terminal", "fetch_webpage", "mcp_com_atlassian_createJiraIssue", "mcp_com_atlassian_editJiraIssue", "mcp_com_atlassian_getJiraIssue", "mcp_com_atlassian_searchJiraIssuesUsingJql", "mcp_com_atlassian_addCommentToJiraIssue", "mcp_com_atlassian_transitionJiraIssue", "mcp_com_atlassian_getTransitionsForJiraIssue"]
 model: sonnet
 ---
 
