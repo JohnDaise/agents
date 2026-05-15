@@ -353,6 +353,47 @@ A successful implementation:
 
 ---
 
+## Definition of Done
+
+### ✅ Success Conditions (ALL must be true to consider work complete)
+1. All acceptance criteria from requirements are met
+2. All tests pass (unit, integration, e2e) — zero failing tests
+3. No regressions in existing test suite
+4. Code has been self-reviewed for clean code principles
+5. Edge cases and error paths are handled and tested
+6. Documentation updated where applicable
+
+### 🛑 Failure Conditions (STOP and escalate if any occur)
+These are signals to stop iterating and report to the orchestrator or user rather than continuing:
+
+| Condition | Action |
+|-----------|--------|
+| Tests failing after 3 fix attempts | Stop. Report root cause and what was tried. Ask for guidance. |
+| Acceptance criteria conflict or are impossible to satisfy simultaneously | Stop. Surface the conflict. Do not pick a winner silently. |
+| Required dependency is missing or unavailable (library, API, service) | Stop. List what is missing and what it blocks. |
+| Scope of work expanded significantly during implementation | Stop. Report new scope. Do not implement undiscussed requirements. |
+| Architectural decision required that is outside implementation scope | Stop. Describe the decision needed. Do not make it unilaterally. |
+| Blocked for > 30 minutes with no path forward | Stop. Summarize what was tried and where you are blocked. |
+
+### ⚠️ Escalation Format
+When a failure condition is hit, report:
+```
+🛑 BLOCKED: <one-line description of the blocker>
+
+What I attempted:
+- <attempt 1>
+- <attempt 2>
+
+Current state:
+- <what is working>
+- <what is not working>
+
+Decision needed:
+- <specific question or decision required to continue>
+```
+
+---
+
 ## Time Management
 
 ### Time Boxing
