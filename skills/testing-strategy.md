@@ -7,13 +7,13 @@ description: Testing strategies, methodologies, and best practices for software 
 
 Comprehensive guide to software testing approaches, strategies, and best practices.
 
-**⚠️ CRITICAL: Test-Driven Development (TDD) is MANDATORY for all implementations**
+**⚠️ CRITICAL: Test-Driven Development (TDD) is MANDATORY for all implementations — see exemptions below**
 
 ---
 
 ## Quick TDD Reference Card
 
-**The Golden Rule**: Write test BEFORE implementation (no exceptions)
+**The Golden Rule**: Write test BEFORE implementation (see exemptions below)
 
 ### TDD in 3 Steps:
 1. 🔴 **RED** - Write failing test
@@ -30,6 +30,18 @@ Comprehensive guide to software testing approaches, strategies, and best practic
 
 ### When Tests Fail:
 **STOP 🛑 → DEBUG 🔍 → FIX ✅ → VERIFY 🟢**
+
+### TDD Exemptions
+
+TDD may be skipped **only** in these situations. When skipping, you **must** document why in a code comment or commit message.
+
+| Situation | Reason | Required Action |
+|-----------|--------|-----------------|
+| Throwaway proof of concept / spike | No production lifetime | Add `// SPIKE: no tests — delete before merging` comment |
+| Codebase has no test infrastructure and setup is out of scope | Setting up a test framework is a separate task | Document the gap; create a follow-up task |
+| Change is purely to config or auto-generated files | No logic to test | Note in commit message: "config-only, no tests needed" |
+
+**All other cases: TDD is required. If you are unsure, default to writing tests.**
 
 ---
 
@@ -184,9 +196,9 @@ test('user can complete purchase', async ({ page }) => {
 
 ## Test-Driven Development (TDD)
 
-### CRITICAL: TDD Is Mandatory for All Implementation
+### CRITICAL: TDD Is Mandatory for Most Implementations
 
-**You MUST follow TDD workflow when implementing features or fixing bugs.**
+**You MUST follow TDD workflow when implementing features or fixing bugs.** See the exemptions table in the Quick TDD Reference Card for the narrow set of cases where TDD may be skipped.
 
 ---
 
@@ -273,7 +285,7 @@ test('user can complete purchase', async ({ page }) => {
 ### TDD Non-Negotiable Rules
 
 #### ✅ ALWAYS DO:
-1. **Write test before implementation** - No exceptions
+1. **Write test before implementation** — unless a documented exemption applies (see Quick TDD Reference Card)
 2. **See test fail (RED) before implementing** - Verify test works
 3. **Run tests frequently** - After every small change
 4. **Keep all tests passing** - GREEN is the only acceptable state

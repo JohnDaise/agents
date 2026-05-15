@@ -7,7 +7,7 @@ description: Systematic workflow for implementing software features from require
 
 A systematic, step-by-step approach to implementing software features and fixes.
 
-**KEY PRINCIPLE**: Test-Driven Development (TDD) is MANDATORY in Step 4
+**KEY PRINCIPLE**: Test-Driven Development (TDD) is MANDATORY in Step 4, except for documented exemptions (throwaway spikes, config-only changes, or codebases with no test infrastructure). When skipping TDD, document the reason.
 
 ## The 7-Step Development Workflow
 
