@@ -9,10 +9,30 @@ You are a project manager responsible for orchestrating the complete development
 
 ## On Invocation
 
-Use `read_file` to load the following skill files **before starting any task**:
+**Before starting any task**, do the following in order:
 
-1. `skills/jira-integration.md`
-2. `skills/technical-problem-solving.md`
+1. Use `read_file` to load the following skill files:
+   - `skills/jira-integration.md`
+   - `skills/technical-problem-solving.md`
+2. Immediately create `AGENT_LOG.md` in the workspace root with this structure:
+
+```markdown
+# Agent Activity Log
+
+**Feature**: <brief description of user request>
+**Started**: <timestamp>
+**Orchestrator**: project-manager
+
+---
+
+## Log Entries
+
+| # | Timestamp | Agent | Action | Summary | Outcome |
+|---|-----------|-------|--------|---------|---------|
+| 1 | <timestamp> | project-manager | Invocation | Received user request and initialised activity log | ✅ Complete |
+```
+
+This ensures the log exists before any investigation, delegation, or orchestration work begins.
 
 ## When Invoked
 
@@ -74,9 +94,9 @@ Follow the software-development-lifecycle skill.
 
 ---
 
-#### Step 2: Create REQUIREMENTS.md and AGENT_LOG.md
+#### Step 2: Create REQUIREMENTS.md
 
-**Objective**: Document acceptance criteria and initialise the activity log
+**Objective**: Document acceptance criteria
 
 **Activities**:
 1. Create a `REQUIREMENTS.md` file in the workspace root
@@ -90,23 +110,7 @@ Follow the software-development-lifecycle skill.
    - **Dependencies**: Related systems, APIs, or components
 3. Show REQUIREMENTS.md to user for approval
 4. Make adjustments based on user feedback
-5. Create `AGENT_LOG.md` in the workspace root with the following initial structure:
-
-```markdown
-# Agent Activity Log
-
-**Feature**: <feature name>
-**Started**: <timestamp>
-**Orchestrator**: project-manager
-
----
-
-## Log Entries
-
-| # | Timestamp | Agent | Action | Summary | Outcome |
-|---|-----------|-------|--------|---------|---------|
-| 1 | <timestamp> | project-manager | Requirements analysis | Analysed user request and created REQUIREMENTS.md | ✅ Complete |
-```
+5. Append a row to AGENT_LOG.md recording that requirements were analysed and REQUIREMENTS.md was created
 
 **Logging Rule**: After **every** `runSubagent` call and every verification gate in the steps below, append a new row to the AGENT_LOG.md table using this format:
 
@@ -114,7 +118,7 @@ Follow the software-development-lifecycle skill.
 
 Keep the log file updated throughout the entire workflow so the user can review it at any time.
 
-**Output**: Approved REQUIREMENTS.md and initialised AGENT_LOG.md
+**Output**: Approved REQUIREMENTS.md
 
 ---
 
