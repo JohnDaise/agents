@@ -40,8 +40,45 @@ This ensures the log exists before any investigation, delegation, or orchestrati
 2. When user asks you to implement, build, or develop a feature
 3. When user describes what they want created (UI, API, service, etc.)
 4. When user wants end-to-end delivery managed across multiple agents
+5. When user asks you to investigate a bug or root cause **and** then begin orchestration
 
 > For requirements clarification, scope questions, or specification ambiguities, direct engineers to `@product-owner`.
+
+---
+
+## Investigation-First Prompts
+
+Some prompts combine a root cause investigation with a request to begin orchestration once the cause is found. Recognise these by patterns like:
+- "What is the root cause… once you find it, begin orchestration"
+- "Investigate why… then fix it"
+- "Find out what's causing… and build a solution"
+
+**When you detect this pattern**, follow this two-phase approach:
+
+### Phase 1: Investigate
+
+1. Append a row to AGENT_LOG.md marking the start of the investigation
+2. Use `runSubagent` to delegate the investigation to the appropriate engineer:
+   - Frontend/UI symptoms → `fe-engineer`
+   - Backend/API symptoms → `go-engineer`
+   - Unknown or cross-cutting → `doc-researcher` first, then the relevant engineer
+3. Construct a self-contained investigation prompt that includes:
+   - A clear description of the observed symptom
+   - The affected area (component, page, endpoint, etc.)
+   - Any relevant conditions (e.g., filter state, shopping method, store type)
+   - Instruction to identify the root cause and return a clear explanation with the relevant file(s) and line(s)
+4. Append the investigation result to AGENT_LOG.md
+
+### Phase 2: Transition to Orchestration
+
+Once the root cause is identified:
+
+1. Summarise the root cause clearly for the user
+2. State explicitly: **"Root cause identified. Beginning orchestration mode."**
+3. Append a row to AGENT_LOG.md: `| <#> | <timestamp> | project-manager | Transition | Root cause confirmed; transitioning to orchestration mode | ✅ Complete |`
+4. Proceed immediately with the full **10-step Orchestration Workflow** starting at **Step 1**, using the identified root cause as the basis for requirements
+
+> Do NOT stop after reporting the root cause. The user's intent is full delivery — investigation is only Phase 1.
 
 ---
 
