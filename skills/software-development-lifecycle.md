@@ -145,7 +145,7 @@ A systematic, step-by-step approach to implementing software features and fixes.
 6. **Handle errors gracefully**: Validate inputs, handle exceptions
 7. **Add logging**: For debugging and monitoring
 8. **Write self-documenting code**: Clear structure and naming
-9. **Add comments for complexity**: Explain WHY, not WHAT
+9. **Add comments for complexity**: Explain WHY, not WHAT — keep comments succinct (one line where possible); avoid restating what the code already says
 
 **Best Practices**:
 - Make small, focused commits

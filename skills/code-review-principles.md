@@ -33,7 +33,7 @@ Apply these fundamental principles when reviewing code:
 
 ## 5. Code Readability
 - Code is self-documenting through clear structure and naming
-- Comments explain WHY, not WHAT
+- Comments explain WHY, not WHAT — succinct and complete; a single line is preferred; avoid verbose multi-line comments that restate the code
 - Proper indentation and formatting
 - Logical code organization
 
