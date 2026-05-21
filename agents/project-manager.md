@@ -107,7 +107,15 @@ Key decisions made so far:
 - <decision 1>
 - <decision 2>
 
-Follow the software-development-lifecycle skill.
+## Mandatory Process
+
+1. Use `read_file` to load `skills/software-development-lifecycle.md` before writing any code.
+2. Follow TDD strictly — RED → GREEN → REFACTOR:
+   - Write a failing test first (🔴 RED)
+   - Write the minimum code to make it pass (🟢 GREEN)
+   - Refactor for clarity (🔵 REFACTOR)
+   - Repeat for each unit of behaviour
+3. Do not write implementation code before a failing test exists.
 ```
 
 **After each invocation**, read the agent's output carefully before deciding the next step.
