@@ -108,6 +108,15 @@ Skills are reusable methodologies that agents use. You can reference them when w
 - **documentation-research** - Systematic documentation research
 - **jira-integration** - Creating, managing, and tracking Jira issues and work items
 
+### Data Transformation Skills
+- **promotions-spreadsheet-to-product-badge-json** - Translate Browse Path promotions spreadsheets into product-badge JSON grouped by market and SKU
+
+Policy for promotions transformations:
+- Treat spreadsheet text as source-of-truth.
+- Do not silently correct typos, wording, brand names, punctuation, or legal copy.
+- Only whitespace normalization is allowed automatically.
+- Ask the user for approval before applying any content correction, and report approved changes explicitly.
+
 ---
 
 ## Common Workflows
