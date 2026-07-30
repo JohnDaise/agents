@@ -107,6 +107,7 @@ Skills are reusable methodologies that agents use. You can reference them when w
 - **requirements-clarification** - Requirements analysis and acceptance criteria
 - **documentation-research** - Systematic documentation research
 - **jira-integration** - Creating, managing, and tracking Jira issues and work items
+- **cherry-pick** - Create a PR by cherry-picking specific commits onto a target branch
 
 ### Data Transformation Skills
 - **promotions-spreadsheet-to-product-badge-json** - Translate Browse Path promotions spreadsheets into product-badge JSON grouped by market and SKU
@@ -249,6 +250,17 @@ You: @product-owner Should the search feature support fuzzy matching?
 You: @go-engineer Implement search with the clarified requirements
 
 @go-engineer: [Implements accordingly]
+```
+
+### 7. Cherry-Pick Pull Request
+
+```
+You: @go-engineer Use the cherry-pick skill to backport commit abc1234 to release/1.2
+
+@go-engineer: [Creates a branch from release/1.2]
+              [Cherry-picks abc1234 with traceability]
+              [Runs validation in the target branch context]
+              [Pushes the branch and prepares the PR summary]
 ```
 
 ---
