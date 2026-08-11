@@ -9,6 +9,11 @@ Use this skill to convert promotions rows from spreadsheet exports into the JSON
 
 ## Target Output Shape
 
+There are two supported promotion types:
+
+- `Regular` promotion
+- `For Two` promotion
+
 ```json
 {
   "US-AZ": {
@@ -23,6 +28,34 @@ Use this skill to convert promotions rows from spreadsheet exports into the JSON
       }
     }
   }
+}
+```
+
+Promotion-type examples:
+
+`Regular` promotion example:
+
+```json
+"115676175": {
+  "QrCode": 2064,
+  "OfferCode": "LTA_QUOTIENT_2026_06_3OFF_JACKDANIELS",
+  "Description": "$3.00 Off Coupon",
+  "Details": "Save $3 when you buy ONE (1) 1.75L bottle of any Jack Daniel's Tennessee Whiskey, Apple, Honey, Blackberry, or Fire. VALID WHILE SUPPLIES LAST. Must be of legal purchase age to participate. Must be redeemed at time of purchase. You pay any sales tax or deposit. Offer not valid for employees of Brown-Forman Beverages, affiliated companies and agencies, licensed distributors, retailers, and their immediate families and household members. Void where taxed, restricted, or prohibited by law. Please Drink Responsibly. Responsibility.org. Cannot be combined with any other Total Wine & More coupon or discount. &More Members Only.",
+  "StartDate": "2026-06-08T00:00:00Z",
+  "EndDate": "2026-07-31T23:59:59Z"
+}
+```
+
+`For Two` promotion example:
+
+```json
+"4833750": {
+  "QrCode": 2058,
+  "OfferCode": "LTA_QUOTIENT_2026_06_2OFF_MARKWEST_NOBILO",
+  "Description": "$2.00 Off Two",
+  "Details": "SAVE $2.00 when you buy TWO (2) 750ml bottles of Mark West, Nobilo, or Franciscan VALID WHILE SUPPLIES LAST. OFFER VOID WHERE PROHIBITED BY LAW. Employees of any of the following are not eligible to participate: Franciscan, Mark West, Nobilo affiliated companies, state liquor commissions, and other alcoholic beverage-related government agencies; alcoholic beverage licensees; any household member or immediate family of any employee of one of these entities. Limit 1 rebate per household. No obligation arises from purchase of the designated product or from issuance of any rebate check. Rebate check must be presented for payment before the sponsoring company has any obligation to pay this rebate. Purchase, sale, or trade of rebate form, or UPC symbols is prohibited. Cannot be combined with any other Total Wine & More coupon or discount. &More Members Only.",
+  "StartDate": "2026-06-01T00:00:00Z",
+  "EndDate": "2026-07-31T23:59:59Z"
 }
 ```
 
@@ -82,9 +115,13 @@ For each valid spreadsheet row:
 - Preferred derivation:
   - Extract first money token from `Subheader` or `Offer` (for example `$3`, `$3.00`, `$1.50`)
   - Normalize to two decimals
-  - Compose as `$X.XX Off Coupon`
-- Quantity override:
-  - If the selected offer wording explicitly indicates a two-item requirement and the target convention expects quantity in label, compose `$X.XX Off Two`
+  - Compose as `$X.XX Off Coupon` for `Regular` promotions
+- Promotion type detection:
+  - Detect `For Two` when selected offer wording explicitly indicates a two-item requirement (for example, `buy TWO (2)`, `2 bottles`, `two items`)
+  - Otherwise treat as `Regular`
+- Quantity labeling rule:
+  - `Regular` -> `$X.XX Off Coupon`
+  - `For Two` -> `$X.XX Off Two`
 - Fallback:
   - If amount cannot be extracted, use `Offer` text title-cased with minimal normalization
 
