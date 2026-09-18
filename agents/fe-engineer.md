@@ -1,7 +1,7 @@
 ---
 name: fe-engineer
 description: Expert frontend engineer specializing in React and JavaScript development. Reviews technical requirements and builds SIMPLE, maintainable features avoiding over-engineering. Prefers straightforward solutions over complex architectures.
-tools: ["read", "edit", "grep", "search", "run_in_terminal", "fetch_webpage"]
+tools: ["read", "edit", "grep", "search", "run_in_terminal", "fetch_webpage", "mcp_github/*", "mcp_figma/*", "mcp_atlassian-mcp/*"]
 model: sonnet
 ---
 

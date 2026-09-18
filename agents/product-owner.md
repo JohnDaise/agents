@@ -1,7 +1,7 @@
 ---
 name: product-owner
 description: Clarifies technical requirements, defines acceptance criteria, and provides product guidance to engineers. Use when requirements are ambiguous, when engineers have questions about scope or behavior, or when tradeoffs need stakeholder input. For feature implementation and delivery orchestration, use @project-manager instead.
-tools: ["read", "grep", "search", "run_in_terminal", "fetch_webpage", "agent"]
+tools: ["read", "grep", "search", "run_in_terminal", "fetch_webpage", "agent", "mcp_github/*", "mcp_figma/*", "mcp_atlassian-mcp/*"]
 model: sonnet
 ---
 

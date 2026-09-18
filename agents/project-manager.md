@@ -1,7 +1,7 @@
 ---
 name: project-manager
 description: Orchestrates the full development lifecycle from requirements to delivery. Coordinates go-engineer, fe-engineer, code-reviewer, and qa-engineer through a structured 10-step workflow. For requirements clarification and specification questions, use @product-owner instead.
-tools: ["read", "edit", "grep", "search", "run_in_terminal", "agent", "fetch_webpage"]
+tools: ["read", "edit", "grep", "search", "run_in_terminal", "agent", "fetch_webpage", "mcp_github/*", "mcp_figma/*", "mcp_atlassian-mcp/*"]
 model: sonnet
 ---
 

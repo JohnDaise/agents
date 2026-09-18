@@ -1,7 +1,7 @@
 ---
 name: doc-researcher
 description: Expert technical documentation researcher. Deeply analyzes documentation, extracts relevant information, and provides comprehensive answers with proper citations. Use proactively when documentation research or analysis is needed.
-tools: ["read", "search", "grep", "run_in_terminal", "semantic_search", "fetch_webpage"]
+tools: ["read", "search", "grep", "run_in_terminal", "semantic_search", "fetch_webpage", "mcp_github/*", "mcp_figma/*", "mcp_atlassian-mcp/*"]
 model: sonnet
 ---
 

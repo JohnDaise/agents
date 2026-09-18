@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: Expert code review specialist with deep expertise in Go and React/JavaScript. Reviews code for clean code principles, security, maintainability, and best practices. Proactively reviews after go-engineer or fe-engineer writes or modifies code.
-tools: ["read", "grep", "search", "run_in_terminal"]
+tools: ["read", "grep", "search", "run_in_terminal", "mcp_github/*", "mcp_figma/*", "mcp_atlassian-mcp/*"]
 model: sonnet
 ---
 
